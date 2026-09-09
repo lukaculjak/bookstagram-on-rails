@@ -31,9 +31,6 @@
     <%= form.select :genre, Book::GENRES, prompt: "Choose genre" %>
   </div>
 
-  <%= form.number_field :price_cents, min: 0, step: 1 %>
-  <%= form.number_field :stock, min: 0, step: 1 %>
-
   <div>
     <%= form.label :published_on, style: "display: block" %>
     <%= form.date_field :published_on %>
