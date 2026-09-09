@@ -1,0 +1,37 @@
+<div id="<%= dom_id book %>">
+  <div>
+    <strong>Title:</strong>
+    <%= book.title %>
+  </div>
+
+  <div>
+    <strong>Author:</strong>
+    <%= book.author %>
+  </div>
+
+  <div>
+    <strong>Description:</strong>
+    <%= book.description %>
+  </div>
+
+  <div>
+    <strong>Genre:</strong>
+    <%= book.genre %>
+  </div>
+
+  <div>
+    <strong>Published on:</strong>
+    <%= book.published_on %>
+  </div>
+
+  <div>
+    <strong>Price cents:</strong>
+    <%= money(book.price_cents) %>
+  </div>
+
+  <div>
+    <strong>Stock:</strong>
+    <%= book.stock %>
+  </div>
+
+</div>

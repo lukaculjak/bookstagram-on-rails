@@ -7,3 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+raise "Development seeds only" unless Rails.env.development?
+
+rows = [
+    ["The Glass Harbor", "Mira Vale", "Fiction", 1890, 8, "2024-03-12"],
+    ["A Map of Embers", "Leon Reed", "Fantasy", 2490, 3, "2025-06-01"],
+    ["The Quiet Kingdom", "Ana Brook", "Fantasy", 2150, 0, "2022-11-20"],
+    ["Cities Before Us", "Ivan Stone", "History", 3200, 5, "2023-02-10"],
+    ["Small Useful Programs", "Lena Code", "Technology", 2990, 2,"2026-01-15"],
+    ["Letters from the Valley", "Niko West", "Fiction", 1590, 12, "2021-08-03"]
+]
+
+rows.each do |title, author, genre, price, stock, date|
+    book = Book.find_or_initialize_by(title: title)
+    book.update!(author: author, genre: genre, price_cents: price, stock: stock, published_on: date, description: "A sample #{genre.downcase} book for Bookstagram on Rails")
+end
