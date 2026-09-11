@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-    GENRES = ["Fiction", "Fantasy", "History", "Technology"].freeze
+    GENRES = [ "Fiction", "Fantasy", "History", "Technology" ].freeze
 
     validates :title, :author, presence: true
     validates :genre, inclusion: { in: GENRES }
