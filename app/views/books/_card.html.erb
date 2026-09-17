@@ -1,0 +1,6 @@
+<article class="book-card">
+ <h2><%= link_to book.title, book_path(book) %></h2>
+ <p><%= book.author %> | <%= book.genre %></p>
+ <p><%= money(book.price_cents) %></p>
+ <p><%= book.stock.positive? ? "In stock" : "Sold out" %></p>
+</article>

@@ -3,7 +3,19 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
+    @genre = params[:genre].to_s.strip
+    @in_stock = params[:in_stock] == "1"
+    @sort = params[:sort].to_s.strip
     @books = Book.all
+
+    @books = @books.where(genre: @genre) if Book::GENRES.include?(@genre)
+    @books = @books.where("stock > 0") if @in_stock
+
+    @books = case @sort
+    when "oldest" then @books.order(created_at: :asc, id: :asc)
+    when "title" then @books.order(title: :asc, id: :asc)
+    else @books.order(created_at: :desc, id: :asc)
+    end
   end
 
   # GET /books/1 or /books/1.json

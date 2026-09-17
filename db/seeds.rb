@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-raise "Development seeds only" unless Rails.env.development?
+return unless Rails.env.development?
 
 rows = [
     [ "The Glass Harbor", "Mira Vale", "Fiction", 1890, 8, "2024-03-12" ],
