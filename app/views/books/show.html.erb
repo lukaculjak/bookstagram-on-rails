@@ -1,8 +1,10 @@
 <%= render @book %>
 
 <div>
-  <%= link_to "Edit this book", edit_book_path(@book) %> |
-  <%= link_to "Back to books", books_path %>
+  <% if Current.user&.admin? %>
+    <%= link_to "Edit this book", edit_book_path(@book) %> |
+    <%= link_to "Back to books", books_path %>
+  <% end %>
 
   <%= button_to "Destroy this book", @book, method: :delete %>
 </div>

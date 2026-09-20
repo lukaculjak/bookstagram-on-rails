@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
+  allow_unauthenticated_access only: %i[index show]
+  before_action :require_admin, except: %i[index show]
 
   # GET /books or /books.json
   def index
@@ -14,7 +16,7 @@ class BooksController < ApplicationController
     @books = case @sort
     when "oldest" then @books.order(created_at: :asc, id: :asc)
     when "title" then @books.order(title: :asc, id: :asc)
-    else @books.order(created_at: :desc, id: :asc)
+    else @books.order(created_at: :desc, id: :desc)
     end
   end
 
@@ -70,6 +72,10 @@ class BooksController < ApplicationController
   end
 
   private
+    def require_admin
+      head :forbidden unless Current.user&.admin?
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params.expect(:id))

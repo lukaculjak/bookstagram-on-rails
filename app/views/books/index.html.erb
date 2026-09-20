@@ -1,22 +1,31 @@
 <% content_for :title, "Books" %>
 
 <h1>Browse books</h1>
-<%= link_to "New book", new_book_path %>
+
+<% if Current.user&.admin? %>
+  <%= link_to "New book", new_book_path %>
+<% end %>
 
 <%= form_with url: books_path, method: :get do |form| %>
- <%= form.label :genre %>
- <%= form.select :genre, options_for_select(Book::GENRES, @genre),
- include_blank: "All genres" %>
- <%= form.label :sort, "Sort by" %>
- <%= form.select :sort, options_for_select([
- ["Newest added", "newest"], ["Oldest added", "oldest"],
- ["Title A-Z", "title"]], @sort) %>
- <%= form.check_box :in_stock, { checked: @in_stock }, "1", "0" %>
- <%= form.label :in_stock, "In stock only" %>
- <%= form.submit "Apply" %>
- <%= link_to "Reset", books_path %>
+  <%= form.label :genre %>
+  <%= form.select :genre, options_for_select(Book::GENRES, @genre),
+
+  include_blank: "All genres" %>
+
+  <%= form.label :sort, "Sort by" %>
+  <%= form.select :sort, options_for_select([
+    ["Newest added", "newest"], ["Oldest added", "oldest"],
+    ["Title A-Z", "title"]], @sort) %>
+  <%= form.check_box :in_stock, { checked: @in_stock }, "1", "0" %>
+  <%= form.label :in_stock, "In stock only" %>
+
+  <%= form.submit "Apply" %>
+
+  <%= link_to "Reset", books_path %>
 <% end %>
+
 <div class="book-grid">
  <%= render partial: "card", collection: @books, as: :book %>
 </div>
+
 <% if @books.empty? %><p>No books match these filters.</p><% end %>
